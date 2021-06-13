@@ -1,4 +1,4 @@
-# Customer-Data-Extraction
+# Beam-CSV-Pubsub-Mongo
 This is project is created to understand how we can leverage apache beam streaming framework to consume the raw event inform of 
 CSV using data ingestion queue Pub/Sub and loading it into MongoDb
 I have created the apache beam pipeline using JAVA + Gradle as dependency management and execution engine is GCP dataflow.
