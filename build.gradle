@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+task resources {
+    def resourcesDir = new File('build/resources/main')
+    resourcesDir.mkdirs()
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+sourceSets {
+    main {
+        java {
+            srcDirs 'main'
+        }
+    }
+    test {
+        java {
+            srcDirs 'test'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.enabled true
+        xml.destination file("$buildDir/reports/jacoco.xml")
+        html.enabled true
+        html.destination file("$buildDir/reports/jacoco")
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/common/constants/**',
+                              '**/common/exceptions/**',
+                              '**/common/enums/**',
+                              '**/model/**',
+                              '**/options/**',
+                              '**/pipelinebuilder/**',
+                              '**/io/**',
+                              '**/coders/**',
+                              '**/StreamProcessorApplication.class'
+
+                    ]
+            )
+        }))
+    }
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile(group: 'org.apache.beam', name: 'beam-sdks-java-io-google-cloud-platform', version: '2.25.0')
+    compile(group: 'org.apache.beam', name: 'beam-runners-google-cloud-dataflow-java', version: '2.25.0')
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    compileOnly group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.25.0'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile(group: 'org.apache.beam', name: 'beam-sdks-java-maven-archetypes-starter', version: '2.25.0')
+    compile 'org.mongodb:mongodb-driver:3.3.0'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testImplementation group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
+    testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.9'
+}

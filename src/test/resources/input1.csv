@@ -1,0 +1,2 @@
+CustomerID;ItemID;Sex;Age;Profession;CityType;YearsInCity;HaveChildren;ItemCategory1;ItemCategory2;ItemCategory3;Amount
+1000001;TEST069042;F;0-17;10;A;2;1;3;;;8370
