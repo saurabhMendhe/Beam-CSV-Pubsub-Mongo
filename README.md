@@ -4,6 +4,10 @@ CSV using data ingestion queue Pub/Sub and loading it into MongoDb
 I have created the apache beam pipeline using JAVA + Gradle as dependency management and execution engine is GCP dataflow.
 Also written the custom parser for CSV file using Java Iterator. Reference taken : Apache libraries.
 
+## Prerequisite : 
+1. MongoDb : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+2. GCP Account
+
 ## Arguments description:
 | ARGUMENT | DESCRIPTION |
 |----------|-------------|
